@@ -1,0 +1,18 @@
+{
+  "browser": true,
+  "curly": true,
+  "eqeqeq": true,
+  "esnext": true,
+  "freeze": true,
+  "globalstrict": true,
+  "latedef": true,
+  "mocha": true,
+  "noarg": true,
+  "nocomma": true,
+  "node": true,
+  "nonbsp": true,
+  "nonew": true,
+  "singleGroups": true,
+  "undef": true,
+  "unused": "strict"
+}
