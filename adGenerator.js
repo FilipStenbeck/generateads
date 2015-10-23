@@ -34,14 +34,17 @@ class Ad {
   }
 }
 
-exports.retrieve = function retrive(timestamp, environment) {
+exports.retrieve = function retrive(key, timestamp, environment) {
   let url = `http://127.0.0.1:17707/v1/ads?timestamp=${timestamp}`;
   if (environment === 'staging') {
-    url = `https://new-api.staging-sentinelengine.com/v1/ads?timestamp=${timestamp}`;
+    url = `https://api.staging-sentinelengine.com/v1/ads?timestamp=${timestamp}`;
+  }
+  if (environment === 'prod') {
+    url = `https://api.sentinelengine.com/v1/ads?timestamp=${timestamp}`;
   }
   request.get({
     //jscs:disable
-    headers: {'content-type': 'application/json', 'X-Api-Key': 'fb5ff7a6fe174b31bf7cc48184fecd4a'},
+    headers: {'content-type': 'application/json', 'X-Api-Key': key},
     url: url
     //jscs:enable
   }, function (error, response, body) {
@@ -58,11 +61,17 @@ exports.retrieve = function retrive(timestamp, environment) {
 
 };
 
-exports.deliver = function deliver(numOfAds, environment) {
+exports.deliver = function deliver(apiKey, numOfAds, environment) {
   let url = 'http://127.0.0.1:17707/v1/ads';
   let ads = [];
   if (environment === 'staging') {
-    url = 'https://new-api.staging-sentinelengine.com/v1/ads';
+    url = 'https://api.staging-sentinelengine.com/v1/ads';
+  }
+  if (environment === 'staging') {
+    url = 'https://api.staging-sentinelengine.com/v1/ads';
+  }
+  if (environment === 'prod') {
+    url = 'https://api.sentinelengine.com/v1/ads';
   }
 
   function* adGenerator() {
@@ -78,7 +87,7 @@ exports.deliver = function deliver(numOfAds, environment) {
   };
   request.post({
     //jscs:disable
-    headers: {'content-type': 'application/json', 'X-Api-Key': 'fb5ff7a6fe174b31bf7cc48184fecd4a'},
+    headers: {'content-type': 'application/json', 'X-Api-Key': apiKey},
     //jscs:enable
     url:     url,
     body:    JSON.stringify(ads)
