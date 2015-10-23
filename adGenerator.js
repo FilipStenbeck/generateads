@@ -1,6 +1,7 @@
 'use strict';
 let request = require('request');
 let uuid = require('uuid');
+let adData = require('./adData');
 
 const adStub = {
   content: {
@@ -27,7 +28,7 @@ const adStub = {
 class Ad {
   constructor() {
     this.id = uuid.v4();
-    this.content = adStub.content;
+    this.content = adData.getData().content;
   }
   get data() {
     return {id: this.id, content: this.content};
